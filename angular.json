@@ -27,14 +27,14 @@
           },
           "options": {
             "assets": [{ "glob": "**/*", "input": "public" }],
-            "index": "src/index.html",
+            "index": "src/frontend-angular-cars",
             "browser": "src/main.ts",
             "outputPath": "dist/demo",
             "polyfills": ["zone.js"],
             "scripts": [],
             "styles": ["src/global_styles.css"],
             "tsConfig": "tsconfig.app.json",
-            "baseHref": "/cars/"
+            "baseHref": "/frontend-angular-cars"
           }
         },
         "serve": {
