@@ -1,0 +1,155 @@
+<main class="main">
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="images/logo.png" alt="Logo" />
+      </div>
+      <nav class="menu">
+        <ul>
+          <li>
+            <a href="#cars">НАШ автопарк</a>
+          </li>
+          <li>
+            <a href="#order">Забронировать</a>
+          </li>
+        </ul>
+      </nav>
+      <a href="tel:+971523898989" class="phone">+971 52 389 89 89</a>
+    </div>
+  </header>
+
+  <section class="main-content">
+    <div class="container">
+      <div class="main-info">
+        <h1>Покорите дороги за рулём легендарных автомобилей!</h1>
+        <p>
+          От эксклюзивных спорткаров до гоночных шедевров — выбирайте мечту,
+          садитесь за руль и ощутите мощь премиального авто на полную!
+        </p>
+        <a href="#cars" class="button" id="main-action-button"
+          >Посмотреть автомобили</a
+        >
+      </div>
+      <img
+        src="images/main-car.png"
+        alt="Main car"
+        class="main-image"
+        [style]="mainImgStyle"
+      />
+    </div>
+  </section>
+
+  <div class="black-block"></div>
+</main>
+
+<section class="cars" id="cars">
+  <div class="container">
+    <h2>Выберите автомобиль</h2>
+    <div class="cars-content" id="cars-content" #carsContent>
+      <aside class="cars-filter">
+        <ul>
+          @for (filter of carsFilter; track $index) {
+          <li
+            [class.active]="filter.active"
+            (click)="changeFilter(filter, carsContent)"
+          >
+            {{ filter.name }}
+          </li>
+          }
+        </ul>
+      </aside>
+      <div class="cars-items">
+        @for (car of cars; track car.title) {
+        <article class="car">
+          <img src="{{ car.image }}" alt="car" />
+          <div class="car-details">
+            <h4>{{ car.title }}</h4>
+            <p>
+              {{ car.text }}
+            </p>
+            <div class="car-action">
+              <ul>
+                @for (period of ["на 1 сутки", "на 1-3 суток", "на 3+ суток"];
+                track $index) {
+                <li>
+                  <div class="cat-period">{{ period }}</div>
+                  <div class="car-price">
+                    {{ car.prices[$index] }} $ @if ($index > 0) {
+                    <span>/сут</span> }
+                  </div>
+                </li>
+                }
+              </ul>
+              <a
+                href="#order"
+                class="button white-button"
+                (click)="this.orderForm.get('car')?.setValue(car.title)"
+                >Забронировать</a
+              >
+            </div>
+          </div>
+        </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="order" id="order">
+  <div class="container">
+    <img src="images/order-car.png" alt="order car" [style]="orderImgStyle" />
+    <form [formGroup]="orderForm">
+      <h3>Забронируйте автомобиль</h3>
+      <p>
+        Заполните контактные данные, и мы перезвоним вам для обсуждения деталей
+        и подтверждения бронирования
+      </p>
+      <div class="order-form">
+        <input
+          type="text"
+          placeholder="Автомобиль"
+          required
+          readonly
+          id="car"
+          formControlName="car"
+          [class.error]="isError('car')"
+        />
+        <input
+          type="text"
+          placeholder="Ваше имя"
+          required
+          id="name"
+          formControlName="name"
+          [class.error]="isError('name')"
+        />
+        <input
+          type="text"
+          placeholder="Ваш телефон"
+          required
+          id="phone"
+          minlength="10"
+          formControlName="phone"
+          [class.error]="isError('phone')"
+        />
+        <button
+          class="button"
+          type="button"
+          id="order-action"
+          (click)="sendOrder()"
+          [disabled]="!orderForm.valid"
+        >
+          Забронировать
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo" />
+    </div>
+    <div class="rights">все права защищены</div>
+  </div>
+</footer>
