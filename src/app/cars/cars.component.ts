@@ -84,7 +84,7 @@ export class CarsComponent {
 
   getCars(filter: string) {
     this.http
-      .get('https://testologia.ru/cars-data', {
+      .get('http:/#укажите адрес бекенда/cars-data', {
         params: { filter: filter },
       })
       .subscribe((data) => (this.cars = data));
@@ -107,7 +107,7 @@ export class CarsComponent {
   sendOrder() {
     if (this.orderForm.valid) {
       this.http
-        .post('https://testologia.ru/cars-order', this.orderForm.value)
+        .post('http://#укажите адрес бекенда/cars-order', this.orderForm.value)
         .subscribe({
           next: (response: any) => {
             alert(response.message);
