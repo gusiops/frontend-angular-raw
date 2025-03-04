@@ -84,7 +84,7 @@ export class CarsComponent {
 
   getCars(filter: string) {
     this.http
-      .get('http:/#укажите адрес бекенда/cars-data', {
+      .get('http://filatov.website:5000/cars-data', {
         params: { filter: filter },
       })
       .subscribe((data) => (this.cars = data));
@@ -107,7 +107,7 @@ export class CarsComponent {
   sendOrder() {
     if (this.orderForm.valid) {
       this.http
-        .post('http://#укажите адрес бекенда/cars-order', this.orderForm.value)
+        .post('http://filatov.website:5000/cars-order', this.orderForm.value)
         .subscribe({
           next: (response: any) => {
             alert(response.message);
